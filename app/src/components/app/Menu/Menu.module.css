@@ -1,0 +1,364 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
+.menu {
+  position: fixed;
+  /* top: 32px; */
+  left: 0;
+  width: 200px;
+  height: 100vh;
+  background: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 9999;
+  animation: slideInMenuLeft 0.35s cubic-bezier(.77,0,.18,1) 0s 1;
+}
+
+@keyframes slideInMenuLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.menuList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.menuList > :first-child {
+  margin-top: 0px;
+}
+
+.item, .active {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 36px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: #bdbdbd;
+  font-size: 16px;
+  font-weight: 550;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  border-radius: 0 12px 12px 0;
+  position: relative;
+  margin-left: 0;
+  align-self: stretch;
+  user-select: none;
+  -webkit-user-select: none;
+  justify-content: flex-start;
+}
+
+.item:last-child, .active:last-child {
+  margin-bottom: 20px;
+}
+
+.item, .active, .label {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-variant: small-caps;
+  font-weight: 600;
+}
+
+/* Для игровых вкладок: сдвиг названия при активной линии */
+.gameTabLabel {
+  transition: none;
+  will-change: transform;
+}
+.gameTabActive .gameTabLabel {
+  animation: gameTabSlideRight 0.38s cubic-bezier(.77,0,.18,1) both;
+}
+.item:not(.gameTabActive) .gameTabLabel {
+  animation: gameTabSlideLeft 0.38s cubic-bezier(.77,0,.18,1) both;
+}
+
+@keyframes gameTabSlideRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(30px);
+  }
+}
+@keyframes gameTabSlideLeft {
+  from {
+    transform: translateX(30px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.item:hover {
+    color: #fff;
+}
+
+
+
+.active {
+  color: #fff;
+}
+
+.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 30px;
+  height: 10px;
+  border-radius: 0 12px 12px 0;
+  background: #29b0ff;
+  box-shadow: 0 0 12px 4px #1cacffb7;
+  z-index: 1;
+  animation: slideBarInLeft 0.4s forwards;
+  transition: transform 0.4s;
+  transform: translate(0, -50%);
+}
+
+.item:not(.active)::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 30px;
+  height: 10px;
+  border-radius: 0 12px 12px 0;
+  background: #29b0ff;
+  box-shadow: 0 0 12px 4px #1cacffb7;
+  z-index: 1;
+  animation: slideBarOutLeft 0.4s forwards;
+  transition: transform 0.4s;
+  transform: translate(-100%, -50%);
+  pointer-events: none;
+  opacity: 0;
+}
+
+@keyframes slideBarOutLeft {
+  from {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-100%, -50%);
+  }
+}
+@keyframes slideBarInLeft {
+    from {
+        transform: translate(-100%, -50%);
+        opacity: 0.5;
+    }
+    to {
+        transform: translate(0, -50%);
+        opacity: 1;
+    }
+}
+.active::before {
+  transform: translateY(-50%) scaleX(1);
+}
+
+@keyframes slideBarIn {
+  from { transform: translateY(-50%) scaleX(0); opacity: 0.5; }
+  to { transform: translateY(-50%) scaleX(1); opacity: 1; }
+}
+
+@keyframes activeMenuBgSlide {
+  from {
+    background-size: 0% 100%;
+  }
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+@keyframes activeMenuFadeIn {
+  from {
+    opacity: 0.2;
+    transform: scale(0.96) translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 24px;
+  font-size: 16px;
+  transition: filter 0.2s;
+  position: absolute;
+  left: 0;
+  margin-left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.label {
+  display: inline-block;
+  margin-left: 0px;
+  transition: color 0.2s;
+  position: absolute;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.mainLabel {
+  top: 50%;
+}
+
+.gamesLabel {
+  width: 100%;
+  margin-left: 5%;
+  margin-bottom: 3px;
+  text-align: left;
+}
+
+/* Анимация сдвига для всех вкладок */
+.tabSlide {
+  animation: tabSlideRight 0.38s cubic-bezier(.77,0,.18,1) both;
+}
+.tabSlideBack {
+  animation: tabSlideLeft 0.38s cubic-bezier(.77,0,.18,1) both;
+}
+
+@keyframes tabSlideRight {
+  from {
+    left: 32px;
+  }
+  to {
+    left: 60px;
+  }
+}
+@keyframes tabSlideLeft {
+  from {
+    left: 60px;
+  }
+  to {
+    left: 32px;
+  }
+}
+
+.iconSlide {
+  animation: iconSlideRight 0.38s cubic-bezier(.77,0,.18,1) both;
+}
+.iconSlideBack {
+  animation: iconSlideLeft 0.38s cubic-bezier(.77,0,.18,1) both;
+}
+
+@keyframes iconSlideRight {
+  from {
+    left: 0;
+  }
+  to {
+    left: 28px;
+  }
+}
+@keyframes iconSlideLeft {
+  from {
+    left: 28px;
+  }
+  to {
+    left: 0;
+  }
+}
+
+.bottom {
+  margin-bottom: 100px;
+}
+
+.svg {
+  filter: invert(1);
+}
+
+.onlineInfo {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 12px;
+  gap: 4px;
+  padding-right: 0;
+  background: none;
+  margin-left: 0;
+  z-index: 10000;
+}
+
+.onlineIcon {
+  filter: invert(0.6) brightness(1.7);
+  opacity: 0.85;
+}
+
+.onlineCount {
+  color: #fff;
+  font-size: 13px;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 600;
+  opacity: 0.85;
+  letter-spacing: 0.02em;
+}
+
+.sectionDivider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 18px 0 8px 0;
+  width: 100%;
+}
+
+.sectionLine {
+  flex: 1;
+  height: 1.5px;
+  background: #fff;
+  opacity: 0.18;
+  border-radius: 1px;
+}
+
+.sectionText {
+  color: #fff;
+  font-size: 13px;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-variant: small-caps;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+  padding: 0 8px;
+  user-select: none;
+}
+
+.logoWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 18px;
+  margin-top: 32px;
+}
+
+.logo {
+  max-width: 140px;
+  max-height: 140px;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px 0 #0002;
+  object-fit: contain;
+}
+
+.statusDot {
+  display: inline-block;
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-left: 19%;
+  margin-top: 2px;
+  z-index: 9999;
+  background: #fff;
+  vertical-align: middle;
+}
+

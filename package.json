@@ -1,0 +1,73 @@
+{
+  "name": "electronjs-bs",
+  "version": "1.0.0",
+  "description": "My Electron Launcher",
+  "main": "electron/main.js",
+  "scripts": {
+    "app:dev": "cd app && npm run dev",
+    "app:build": "cd app && npm run build",
+    "app:start": "cd app && npm run start",
+    "electron:dev": "npm run app:build && cross-env NODE_ENV=production electron .",
+    "electron:start": "cross-env NODE_ENV=production electron .",
+    "electron:build": "npm run app:build && electron-builder",
+    "dev": "concurrently \"npm run app:dev\" \"wait-on http://localhost:3000 && cross-env NODE_ENV=development electron .\"",
+    "build": "npm run app:build",
+    "dist": "npm run electron:build",
+    "publish": "npm run app:build && electron-builder --publish=always",
+    "test:production": "npm run app:build && electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Masus015/electronjs-BS.git"
+  },
+  "keywords": ["electron", "launcher"],
+  "author": "Masus",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Masus015/electronjs-BS/issues"
+  },
+  "homepage": "https://github.com/Masus015/electronjs-BS#readme",
+  "build": {
+    "appId": "com.masus.electronjs-bs",
+    "productName": "BS Launcher",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "app/.next/**/*",
+      "app/public/**/*",
+      "electron/**/*",
+      "main.js",
+      "!**/*.map",
+      "!**/*.log"
+    ],
+    "publish": {
+      "provider": "github",
+      "owner": "Masus015",
+      "repo": "electronjs-BS"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.png"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.png"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/icon.png"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.1",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.0.0",
+    "electron": "^38.0.0",
+    "electron-builder": "^24.13.3",
+    "electron-updater": "^6.1.7",
+    "typescript": "^5.9.2",
+    "wait-on": "^8.0.4"
+  }
+}
